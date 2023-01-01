@@ -10,5 +10,5 @@ WORKDIR /context/aws-otel-lambda/opentelemetry-lambda/collector
 RUN make build
 
 FROM scratch
-WORKDIR /opt/extensions
+WORKDIR /opt
 COPY --from=build /context/aws-otel-lambda/opentelemetry-lambda/collector/build .
