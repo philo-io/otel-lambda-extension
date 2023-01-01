@@ -7,5 +7,5 @@ WORKDIR /context/opentelemetry-lambda/collector
 RUN make build
 
 FROM scratch
-WORKDIR /opt/extensions
+WORKDIR /opt
 COPY --from=build /context/opentelemetry-lambda/collector/build .
