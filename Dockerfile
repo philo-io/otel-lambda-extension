@@ -1,11 +1,14 @@
 FROM golang AS build
 
 WORKDIR /context
-RUN git clone https://github.com/open-telemetry/opentelemetry-lambda.git
+RUN git clone --recurse-submodules https://github.com/aws-observability/aws-otel-lambda.git
 
-WORKDIR /context/opentelemetry-lambda/collector
+WORKDIR /context/aws-otel-lambda/opentelemetry-lambda
+RUN git apply ../collector.patch
+
+WORKDIR /context/aws-otel-lambda/opentelemetry-lambda/collector
 RUN make build
 
 FROM scratch
-WORKDIR /opt
-COPY --from=build /context/opentelemetry-lambda/collector/build .
+WORKDIR /opt/extensions
+COPY --from=build /context/aws-otel-lambda/opentelemetry-lambda/collector/build .
