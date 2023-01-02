@@ -12,3 +12,4 @@ RUN make build
 FROM scratch
 WORKDIR /opt
 COPY --from=build /context/aws-otel-lambda/opentelemetry-lambda/collector/build .
+COPY /collector-config ./collector-config
